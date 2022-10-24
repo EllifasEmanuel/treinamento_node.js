@@ -8,7 +8,7 @@ function extraiLinks(texto){
     const resultados = capturas.map(capturas => ({
         [capturas[1]]: capturas[2]
     }));
-    return resultados;
+    return resultados.length !== 0? resultados : 'Não há links no arquivo';
 }
 
 
@@ -21,7 +21,7 @@ async function pegaArquivo(caminhoDoArquivo){
     try{
         const encoding = 'utf-8';
         const texto = await fs.promises.readFile(caminhoDoArquivo, encoding);
-        console.log(extraiLinks(texto));
+        return extraiLinks(texto);
 
     }catch(erro){
         trataErro(erro);
@@ -29,3 +29,4 @@ async function pegaArquivo(caminhoDoArquivo){
 }
 
 pegaArquivo('./arquivos/texto.md');
+export default pegaArquivo;
